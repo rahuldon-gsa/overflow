@@ -1,58 +1,133 @@
 <div class="nav" role="navigation">
-    <ul>
-        <li><a [routerLink]="['/index']" class="home">Home</a></li>
-        <li><a [routerLink]="['/register','list']" class="list">Register List</a></li>
-    </ul>
+  <ul>
+    <li><a [routerLink]="['/index']" class="home">Home</a></li>
+    <li><a [routerLink]="['/register','list']" class="list">Register List</a></li>
+  </ul>
 </div>
 <div id="persist-register" class="content scaffold-edit" role="main">
-    <h1>{{create ? "Create" : "Edit"}} Register</h1>
-    <ul class="errors" role="alert" *ngIf="errors">
-        <li *ngFor="let error of errors">{{error.message}}</li>
-    </ul>
+  <h1>{{create ? "Create" : "Edit"}} Register</h1>
+  <ul class="errors" role="alert" *ngIf="errors">
+    <li *ngFor="let error of errors">{{error.message}}</li>
+  </ul>
 
-    <form name="save{className}" (ngSubmit)="save()">
-        <fieldset class="form">
-            <fieldset class="form">
-  <div class="fieldcontain required">
-    <label for="password">Password
+  <form name="save{className}" (ngSubmit)="save()" #registerCreateForm="ngForm">
+    <fieldset class="form">
+      <fieldset class="form">
+        <div class="fieldcontain required">
+          <label for="password">Password
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="password" id="password" [(ngModel)]="register.password" type="password" maxlength="15" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="email">Email
+          <input required="" name="password" id="password" [(ngModel)]="register.password" validateEqual="confirmPassword" type="password" maxlength="15" #password="ngModel"
+          />
+
+          <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">
+            <div [hidden]="!password.errors.required">
+              Password is required
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <div>
+          <label>Retype password</label>
+          <input type="password" name="confirmPassword" [ngModel]="confirmPassword" required="" validateEqual="password" #confirmPassword="ngModel">
+          <div *ngIf="confirmPassword.errors && (confirmPassword.dirty || confirmPassword.touched)" class="alert alert-danger">
+            <div [hidden]="!confirmPassword.errors.required">
+              Confirm Password is required
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="fieldcontain required">
+          <label for="email">Email
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="email" id="email" [(ngModel)]="register.email" type="email" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="firstName">First Name
+          <input required="" name="email" id="email" [(ngModel)]="register.email" type="email" #email="ngModel" />
+
+
+          <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+            <div [hidden]="!email.errors.required">
+              Email is required
+            </div>
+          </div>
+
+
+        </div>
+        <div class="fieldcontain required">
+          <label for="firstName">First Name
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="firstName" id="firstName" [(ngModel)]="register.firstName" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="lastName">Last Name
+          <input required="" name="firstName" id="firstName" [(ngModel)]="register.firstName" type="text" #firstName="ngModel" />
+
+
+
+          <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+            <div [hidden]="!firstName.errors.required">
+              First Name is required
+            </div>
+          </div>
+
+
+        </div>
+        <div class="fieldcontain required">
+          <label for="lastName">Last Name
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="lastName" id="lastName" [(ngModel)]="register.lastName" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="gender">Gender
+          <input required="" name="lastName" id="lastName" [(ngModel)]="register.lastName" type="text" #lastName="ngModel" />
+
+          <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+            <div [hidden]="!lastName.errors.required">
+              Last Name is required
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <div class="fieldcontain required">
+          <label for="gender">Gender
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="gender" id="gender" [(ngModel)]="register.gender" type="text" />
-  </div>
-  <div class="fieldcontain required">
-    <label for="mobile">Mobile
+          <select id="gender" name="gender" [(ngModel)]="register.gender" required #gender="ngModel">
+          <option *ngFor="let p of genders" [value]="p">{{p}}</option>
+        </select>
+          <div *ngIf="gender.errors && gender.touched" class="alert alert-danger">
+            <div [hidden]="!gender.errors.required">Gender is required</div>
+          </div>
+
+
+        </div>
+
+
+
+
+
+
+        <div class="fieldcontain required">
+          <label for="mobile">Mobile
       <span class="required-indicator">*</span>
     </label>
-    <input required="" name="mobile" id="mobile" [(ngModel)]="register.mobile" type="text" />
-  </div>
-</fieldset>
-        </fieldset>
-        <fieldset class="buttons">
-            <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" />
-        </fieldset>
-    </form>
+          <input required="" name="mobile" id="mobile" [(ngModel)]="register.mobile" pattern="[0-9]+"  type="text" #mobile="ngModel" />
+          <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+            <div [hidden]="!mobile.errors.required">
+              Mobile Number is required
+            </div>
+            <div [hidden]="!mobile.errors.pattern">
+              Mobile Number should be number
+            </div>
+          </div>
+
+
+        </div>
+      </fieldset>
+    </fieldset>
+    <fieldset class="buttons">
+      <input type="submit" class="save" [value]="create ? 'Save' : 'Update'" [disabled]="!registerCreateForm.valid" />
+    </fieldset>
+  </form>
 </div>
