@@ -1,0 +1,7 @@
+import com.wits.sec.UserRole
+
+model {
+	UserRole userRole
+}
+
+json tmpl.userRole(userRole)

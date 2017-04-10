@@ -7,10 +7,12 @@ import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class RegisterService {
 
-  private baseUrl = 'http://localhost:8080/';
+  private baseUrl = environment.serverUrl;
 
   constructor(private http: Http) {
   }

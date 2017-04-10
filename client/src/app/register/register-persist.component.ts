@@ -7,14 +7,15 @@ import {Response} from "@angular/http";
 
 @Component({
   selector: 'register-persist',
-  templateUrl: './register-persist.component.html'
+  templateUrl: './register-persist.component.html',
+  styleUrls: ['./register.component.css']
 })
 export class RegisterPersistComponent implements OnInit {
 
   register = new Register();
   create = true;
   errors: any[];
-  
+  genders = ['Male', 'Female', 'Other'];  
 
   constructor(private route: ActivatedRoute, private registerService: RegisterService, private router: Router) {}
 

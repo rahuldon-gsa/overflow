@@ -3,7 +3,9 @@ package overflow
 import grails.core.GrailsApplication
 import grails.util.Environment
 import grails.plugins.*
+import grails.plugin.springsecurity.annotation.Secured
 
+@Secured('permitAll')
 class ApplicationController implements PluginManagerAware {
 
     GrailsApplication grailsApplication
