@@ -6,40 +6,24 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.wits.sec.*;
-import org.springframework.beans.BeanWrapper
-import org.springframework.beans.PropertyAccessorFactory
-
 
 @Secured('permitAll')
-class RegisterController {
+@Transactional(readOnly = true)
+class AssetController {
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-
-         grailsApplication.controllerClasses.each {
-             println it
-             if(it=='Register'){
-               it.getURIs().each {uri ->
-                 println  "${it.logicalPropertyName}.${it.getMethodActionName(uri)}"
-               }
-             }
-   }
- 
         params.max = Math.min(max ?: 10, 100)
-        respond Register.list(params), model:[registerCount: Register.count()]
+        respond Asset.list(params), model:[assetCount: Asset.count()]
     }
 
-    def show(Register register) {
-        respond register
+    def show(Asset asset) {
+        respond asset
     }
-
-    def upload() {
-        println " ---------------- " + params
-    }
-
-     def handleFileUpload(MultipartFile file) {
+ 
+    def handleFileUpload(MultipartFile file) {
         println " working --- " + params
         try {
             println " 1 " + file.getBytes()
@@ -52,56 +36,53 @@ class RegisterController {
     }
 
     @Transactional
-    def save(Register register) {
-        if (register == null) {
+    def save(Asset asset) {
+        if (asset == null) {
             transactionStatus.setRollbackOnly()
             render status: NOT_FOUND
             return
         }
 
-        if (register.hasErrors()) {
+        if (asset.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond register.errors, view:'create'
+            respond asset.errors, view:'create'
             return
         }
 
-        register.save flush:true
+        asset.save flush:true
 
-        def registerUser = new User(username: register.email, password: register.password).save(flush:true)
-        UserRole.create registerUser, Role.findByAuthority("ROLE_USER"), true
-
-        respond register, [status: CREATED, view:"show"]
+        respond asset, [status: CREATED, view:"show"]
     }
 
     @Transactional
-    def update(Register register) {
-        if (register == null) {
+    def update(Asset asset) {
+        if (asset == null) {
             transactionStatus.setRollbackOnly()
             render status: NOT_FOUND
             return
         }
 
-        if (register.hasErrors()) {
+        if (asset.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond register.errors, view:'edit'
+            respond asset.errors, view:'edit'
             return
         }
 
-        register.save flush:true
+        asset.save flush:true
 
-        respond register, [status: OK, view:"show"]
+        respond asset, [status: OK, view:"show"]
     }
 
     @Transactional
-    def delete(Register register) {
+    def delete(Asset asset) {
 
-        if (register == null) {
+        if (asset == null) {
             transactionStatus.setRollbackOnly()
             render status: NOT_FOUND
             return
         }
 
-        register.delete flush:true
+        asset.delete flush:true
 
         render status: NO_CONTENT
     }

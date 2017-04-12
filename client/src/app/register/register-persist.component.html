@@ -94,6 +94,11 @@
                 </div>
               </div>
             </fieldset>
+            <fieldset>
+              
+              <input type="file" (change)="fileChange($event)" placeholder="Upload file">
+
+            </fieldset>
           </fieldset>
           <fieldset class="buttons clearfix">
             <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Register Me' : 'Update'" [disabled]="!registerCreateForm.valid"

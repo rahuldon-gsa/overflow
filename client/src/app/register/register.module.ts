@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {RegisterService} from './register.service';
 
 
@@ -17,9 +18,10 @@ import {RegisterPersistComponent} from './register-persist.component';
     RegisterShowComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule, 
     FormsModule,
-    RegisterRoutingModule
+    RegisterRoutingModule,
+    NgbModule
   ],
   providers: [
     RegisterService

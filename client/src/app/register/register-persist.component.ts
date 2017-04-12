@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {NgbModal, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {Register} from './register';
 import {RegisterService} from './register.service';
 import {Response} from "@angular/http";
-
 
 @Component({
   selector: 'register-persist',
@@ -29,6 +29,18 @@ export class RegisterPersistComponent implements OnInit {
         });
       }
     });
+  }
+
+  fileChange(event){
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('uploadFile', file, file.name);
+        console.log(file);
+        
+        this.registerService.uploadFile(formData).subscribe((data) => {alert(data); });
+    }
   }
 
   save() {

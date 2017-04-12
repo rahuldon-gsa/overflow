@@ -17,6 +17,22 @@ export class RegisterService {
   constructor(private http: Http) {
   }
 
+  uploadFile(formData: FormData): Observable<boolean> {
+    const requestOptions = new RequestOptions();
+
+    requestOptions.method = RequestMethod.Post;
+    requestOptions.url = this.baseUrl + 'register/upload';
+    requestOptions.headers = new Headers({
+      "Accept": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    });
+    requestOptions.body = formData;
+    return this.http.request(new Request(requestOptions)).map((res: Response) => res.ok).catch(() => {
+      return Observable.of(false);
+    });
+  }
+
   list(): Observable<Register[]> {
     let subject = new Subject<Register[]>();
     this.http.get(this.baseUrl + 'register')
