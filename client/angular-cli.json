@@ -19,9 +19,9 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.css"
+        "../node_modules/bootstrap/dist/css/bootstrap.scss"
       ],
-      "scripts": [],
+      "scripts": ["../node_modules/lodash/lodash.js"],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

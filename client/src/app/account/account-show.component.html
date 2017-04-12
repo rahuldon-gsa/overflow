@@ -1,0 +1,76 @@
+<div class="nav" role="navigation">
+    <ul>
+        <li><a [routerLink]="['/index']" class="home">Home</a></li>
+        <li><a class="list" [routerLink]="['/account', 'list']" class="list">Account List</a></li>
+        <li><a class="create" [routerLink]="['/account', 'create']" class="create">New Account</a></li>
+    </ul>
+</div>
+<div id="show-part" class="content scaffold-show" role="main">
+    <h1>Show Account</h1>
+    <ol class="property-list account">
+  <li class="fieldcontain">
+    <span id="num-label" class="property-label">Num</span>
+    <div class="property-value" aria-labelledby="num-label">
+      <span>{{account.num}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="zipCode-label" class="property-label">Zip Code</span>
+    <div class="property-value" aria-labelledby="zipCode-label">
+      <span>{{account.zipCode}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="address2-label" class="property-label">Address2</span>
+    <div class="property-value" aria-labelledby="address2-label">
+      <span>{{account.address2}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="city-label" class="property-label">City</span>
+    <div class="property-value" aria-labelledby="city-label">
+      <span>{{account.city}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="address1-label" class="property-label">Address1</span>
+    <div class="property-value" aria-labelledby="address1-label">
+      <span>{{account.address1}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="dateOfBirth-label" class="property-label">Date Of Birth</span>
+    <div class="property-value" aria-labelledby="dateOfBirth-label">
+      <span>{{account.dateOfBirth | date:'yyyy-MM-dd HH:mm:ss Z'}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="state-label" class="property-label">State</span>
+    <div class="property-value" aria-labelledby="state-label">
+      <span>{{account.state}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="source-label" class="property-label">Source</span>
+    <div class="property-value" aria-labelledby="source-label">
+      <span>{{account.source}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="type-label" class="property-label">Type</span>
+    <div class="property-value" aria-labelledby="type-label">
+      <span>{{account.type}}</span>
+    </div>
+  </li>
+  <li class="fieldcontain">
+    <span id="salary-label" class="property-label">Salary</span>
+    <div class="property-value" aria-labelledby="salary-label">
+      <span>{{account.salary}}</span>
+    </div>
+  </li>
+</ol>
+
+    <a class="edit" [routerLink]="['/account', 'edit', account.id]">Edit</a>
+    <button type="button" (click)="destroy()">Delete</button>
+
+</div>

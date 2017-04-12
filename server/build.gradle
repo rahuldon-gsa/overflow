@@ -50,7 +50,7 @@ dependencies {
     compile "org.grails.plugins:angular2-scaffolding:1.0.0.BUILD-SNAPSHOT"
     console "org.grails:grails-console"
     compile "org.grails.plugins:spring-security-rest:2.0.0.M2"
-    profile "org.grails.profiles:angular2"
+    profile "org.grails.profiles:angular2:1.0.5"
     runtime "com.h2database:h2"
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"

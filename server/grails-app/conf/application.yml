@@ -1,19 +1,11 @@
 ---
 grails:
-    profile: angular2
+    profile: org.grails.profiles:angular2:1.0.5
     codegen:
         defaultPackage: overflow
     spring:
         transactionManagement:
             proxies: false
-    gorm:
-        # Whether to autowire entities. 
-        # Disabled by default for performance reasons.
-        autowire: false         
-        reactor:
-            # Whether to translate GORM events into Reactor events
-            # Disabled by default for performance reasons
-            events: false
 info:
     app:
         name: '@info.app.name@'
@@ -72,6 +64,9 @@ grails:
 grails:
     cors:
         enabled: true
+        # This will not allow to pass localhost rest end point processing 
+       # mappings:
+       #   /api/**: inherit
 ---
 hibernate:
     cache:

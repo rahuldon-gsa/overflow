@@ -11,6 +11,9 @@ import { NavService } from './nav/nav.service';
 import { AppRoutingModule } from "./app-routing.module";
 import { RegisterModule } from './register/register.module';
 import { EqualValidator } from "./shared/validators/equal-validator.directive";
+import { LoginModule } from './login/login.module';
+import { AuthenticationService } from './shared/services/authentication.service'; 
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -26,9 +29,11 @@ import { EqualValidator } from "./shared/validators/equal-validator.directive";
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    RegisterModule
+    RegisterModule,
+    LoginModule,
+    AccountModule
 ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

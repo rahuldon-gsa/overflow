@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, RequestOptions, RequestMethod, Request, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Register} from './register';
-import {Subject} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptions, RequestMethod, Request, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Register } from './register';
+import { Subject } from 'rxjs/Subject';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
@@ -28,7 +28,7 @@ export class RegisterService {
   }
 
   get(id: number): Observable<Register> {
-    return this.http.get(this.baseUrl + 'register/'+id)
+    return this.http.get(this.baseUrl + 'register/' + id)
       .map((r: Response) => new Register(r.json()));
   }
 
@@ -42,7 +42,11 @@ export class RegisterService {
       requestOptions.url = this.baseUrl + 'register';
     }
     requestOptions.body = JSON.stringify(register);
-    requestOptions.headers = new Headers({"Content-Type": "application/json"});
+    requestOptions.headers = new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    });
 
     return this.http.request(new Request(requestOptions))
       .map((r: Response) => new Register(r.json()));
