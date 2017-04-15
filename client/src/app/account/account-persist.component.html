@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-6">
+  <div class="row justify-content-center">
+    <div class="col-sm-6 align-self-center">
 
       <div id="persist-account" class="content scaffold-edit" role="main">
         <h1>{{create ? "Create" : "Edit"}} Account</h1>
@@ -12,133 +12,143 @@
           <fieldset class="form">
             <fieldset class="form">
 
-              <div class="fieldcontain required">
-                <label for="source">Source
-      <span class="required-indicator">*</span>
-    </label>
-                <select class="form-control" required="" name="source" id="source" [(ngModel)]="account.source" type="text" #source="ngModel">
-                  <option *ngFor="let p of incomeSources" [value]="p">{{p}}</option>
-                </select>
-
-                <div *ngIf="source.errors && (source.dirty || source.touched)" class="alert alert-danger">
-                  <div [hidden]="!source.errors.required">
-                    Source is required
-                  </div>
-                </div>
-
+              <div class="btn-group" data-toggle="buttons" *ngIf="!account.type">
+                <label class="btn btn-primary"> 
+                  <input type="radio" name="type" [(ngModel)]="account.type" value="checking" (change)="lockAccount()"> Checking
+                </label><div class="col-sm-1"></div>
+                <label class="btn btn-primary">
+                 <input type="radio" name="type" [(ngModel)]="account.type" value="saving" (change)="lockAccount()"> Savings
+                </label>
               </div>
+ 
+              <div *ngIf="account.type">
 
-              <div class="fieldcontain required">
-                <label for="salary">Salary
-      <span class="required-indicator">*</span>
-    </label>
-                <input class="form-control" required="" name="salary" maxlength="8" id="salary" [(ngModel)]="account.salary" pattern="[0-9]+"
-                  type="text" #salary="ngModel" />
+                <div class="fieldcontain required">
+                  <label for="source">Source
+                            <span class="required-indicator">*</span>
+                          </label>
+                  <select class="form-control" required="" name="source" id="source" [(ngModel)]="account.source" type="text" #source="ngModel">
+                                <option *ngFor="let p of incomeSources" [value]="p">{{p}}</option>
+                              </select>
 
-                <div *ngIf="salary.errors && (salary.dirty || salary.touched)" class="alert alert-danger">
-                  <div [hidden]="!salary.errors.required">
-                    Salary is required
-                  </div>
-                  <div [hidden]="!salary.errors.pattern">
-                    Salary should be number
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="fieldcontain required">
-                <label for="dateOfBirth">Date Of Birth
-      <span class="required-indicator">*</span>
-    </label>
-                <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" id="dateOfBirth" [disabled]="true" [(ngModel)]="account.dateOfBirth"
-                    ngbDatepicker #dateOfBirth="ngbDatepicker">
-                    <div class="input-group-addon" (click)="dateOfBirth.toggle()">
-                      <img src="images/spinner.gif" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                  <div *ngIf="source.errors && (source.dirty || source.touched)" class="alert alert-danger">
+                    <div [hidden]="!source.errors.required">
+                      Source is required
                     </div>
+                  </div>
+
                 </div>
 
+                <div class="fieldcontain required">
+                  <label for="salary">Salary
+                    <span class="required-indicator">*</span>
+                  </label>
+                  <input class="form-control" required="" name="salary" maxlength="8" id="salary" [(ngModel)]="account.salary" pattern="[0-9]+"
+                    type="text" #salary="ngModel" />
 
-                <div *ngIf="dateOfBirth.errors && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert alert-danger">
-                  <div [hidden]="!dateOfBirth.errors.required">
-                    Date of Birth is required
+                  <div *ngIf="salary.errors && (salary.dirty || salary.touched)" class="alert alert-danger">
+                    <div [hidden]="!salary.errors.required">
+                      Salary is required
+                    </div>
+                    <div [hidden]="!salary.errors.pattern">
+                      Salary should be number
+                    </div>
                   </div>
                 </div>
 
-              </div> 
+
+                <div class="fieldcontain required">
+                  <label for="dateOfBirth">Date Of Birth
+                    <span class="required-indicator">*</span>
+                  </label>
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" id="dateOfBirth" [disabled]="true" [(ngModel)]="account.dateOfBirth"
+                      ngbDatepicker #dateOfBirth="ngbDatepicker">
+                      <div class="input-group-addon" (click)="dateOfBirth.toggle()">
+                        <img src="images/spinner.gif" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                      </div>
+                  </div>
 
 
-              <div class="fieldcontain required">
-                <label for="address1">Address1
-      <span class="required-indicator">*</span>
-    </label>
-                <input class="form-control" required="" name="address1" id="address1" [(ngModel)]="account.address1" type="text" #address1="ngModel"
-                />
+                  <div *ngIf="dateOfBirth.errors && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert alert-danger">
+                    <div [hidden]="!dateOfBirth.errors.required">
+                      Date of Birth is required
+                    </div>
+                  </div>
 
-                <div *ngIf="address1.errors && (address1.dirty || address1.touched)" class="alert alert-danger">
-                  <div [hidden]="!address1.errors.required">
-                    Address1 is required
+                </div>
+
+
+                <div class="fieldcontain required">
+                  <label for="address1">Address1
+                    <span class="required-indicator">*</span>
+                  </label>
+                  <input class="form-control" required="" name="address1" id="address1" [(ngModel)]="account.address1" type="text" #address1="ngModel"
+                  />
+
+                  <div *ngIf="address1.errors && (address1.dirty || address1.touched)" class="alert alert-danger">
+                    <div [hidden]="!address1.errors.required">
+                      Address1 is required
+                    </div>
+                  </div>
+                </div>
+                <div class="fieldcontain required">
+                  <label for="address2">Address2</label>
+                  <input class="form-control" name="address2" id="address2" [(ngModel)]="account.address2" type="text" #address2="ngModel"
+                  />
+
+                </div>
+                <div class="fieldcontain required">
+                  <label for="city">City
+                    <span class="required-indicator">*</span>
+                  </label>
+                  <input class="form-control" required="" name="city" id="city" [(ngModel)]="account.city" type="text" #city="ngModel" />
+
+                  <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
+                    <div [hidden]="!city.errors.required">
+                      City is required
+                    </div>
+                  </div>
+                </div>
+                <div class="fieldcontain required">
+                  <label for="state">State
+                    <span class="required-indicator">*</span>
+                  </label>
+                  <select class="form-control" required="" name="state" id="state" [(ngModel)]="account.state" type="text" #state="ngModel">
+                                <option *ngFor="let p of stateList" [value]="p.abbreviation">{{p.name}}</option>
+                              </select>
+
+                  <div *ngIf="state.errors && (state.dirty || state.touched)" class="alert alert-danger">
+                    <div [hidden]="!state.errors.required">
+                      State is required
+                    </div>
+                  </div>
+                </div>
+                <div class="fieldcontain required">
+                  <label for="zipCode">Zip Code
+                    <span class="required-indicator">*</span>
+                  </label>
+                  <input class="form-control" required="" name="zipCode" id="zipCode" minlength="5" maxlength="5" [(ngModel)]="account.zipCode"
+                    pattern="[0-9]+" type="text" #zipCode="ngModel" />
+
+                  <div *ngIf="zipCode.errors && (zipCode.dirty || zipCode.touched)" class="alert alert-danger">
+                    <div [hidden]="!zipCode.errors.required">
+                      ZipCode is required
+                    </div>
+                    <div [hidden]="!zipCode.errors.pattern">
+                      ZipCode should be number
+                    </div>
+                    <div [hidden]="!zipCode.errors.minlength">
+                      ZipCode should be 5 digits
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="fieldcontain required">
-                <label for="address2">Address2</label>
-                <input class="form-control" name="address2" id="address2" [(ngModel)]="account.address2" type="text" #address2="ngModel"
-                />
-
-              </div>
-              <div class="fieldcontain required">
-                <label for="city">City
-      <span class="required-indicator">*</span>
-    </label>
-                <input class="form-control" required="" name="city" id="city" [(ngModel)]="account.city" type="text" #city="ngModel" />
-
-                <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
-                  <div [hidden]="!city.errors.required">
-                    City is required
-                  </div>
-                </div>
-              </div>
-              <div class="fieldcontain required">
-                <label for="state">State
-      <span class="required-indicator">*</span>
-    </label>
-                <select class="form-control" required="" name="state" id="state" [(ngModel)]="account.state" type="text" #state="ngModel">
-                  <option *ngFor="let p of stateList" [value]="p.abbreviation">{{p.name}}</option>
-                </select>
-
-                <div *ngIf="state.errors && (state.dirty || state.touched)" class="alert alert-danger">
-                  <div [hidden]="!state.errors.required">
-                    State is required
-                  </div>
-                </div>
-              </div>
-              <div class="fieldcontain required">
-                <label for="zipCode">Zip Code
-      <span class="required-indicator">*</span>
-    </label>
-                <input class="form-control" required="" name="zipCode" id="zipCode" minlength="5" maxlength="5" [(ngModel)]="account.zipCode"
-                  pattern="[0-9]+" type="text" #zipCode="ngModel" />
-
-                <div *ngIf="zipCode.errors && (zipCode.dirty || zipCode.touched)" class="alert alert-danger">
-                  <div [hidden]="!zipCode.errors.required">
-                    ZipCode is required
-                  </div>
-                  <div [hidden]="!zipCode.errors.pattern">
-                    ZipCode should be number
-                  </div>
-                  <div [hidden]="!zipCode.errors.minlength">
-                    ZipCode should be 5 digits
-                  </div>
-                </div>
-              </div>
-
             </fieldset>
           </fieldset>
           <hr>
-          <fieldset class="buttons clearfix">
-            <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Create Account' : 'Update Account'" [disabled]="!accountCreateForm.valid"
-            />
+          <fieldset class="buttons clearfix" *ngIf="account.type">
+            <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Create Account' : 'Update Account'" [disabled]="!accountCreateForm.valid"/>
           </fieldset>
 
         </form>

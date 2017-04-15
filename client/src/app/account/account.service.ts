@@ -29,8 +29,6 @@ export class AccountService {
   }
 
   get(id: number): Observable<Account> {
-
-
     return this.http.get(this.baseUrl + 'account/'+id)
       .map((r: Response) => new Account(r.json()));
   }
@@ -47,7 +45,6 @@ export class AccountService {
 
     account.num = _.random(0, 99999999).toString();
     console.log("Random :: " + account.num);
-    account.type = "Salary";
     requestOptions.body = JSON.stringify(account);
     requestOptions.headers = new Headers({"Content-Type": "application/json"});
 

@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, RequestMethod, Request, Response } from "@angular/http";
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
 
-    message : string;
-
+    message: string;
+ 
     constructor(private http: Http, private router: Router) {
     }
 
@@ -31,11 +32,15 @@ export class AuthenticationService {
         });
     }
 
-    logout() {
-        // remove user from local storage to log user out
-        sessionStorage.removeItem('currentUser');
-        sessionStorage.removeItem('userRole');
-        sessionStorage.clear();
-        this.router.navigateByUrl('/login');
+    logout(): Observable<boolean> {
+        if (sessionStorage.getItem('currentUser')) {
+            sessionStorage.removeItem('currentUser');
+            sessionStorage.removeItem('userRole');
+            sessionStorage.removeItem('auth-message');
+            sessionStorage.clear();
+            return Observable.of(true);
+        } else {
+            return Observable.of(false);
+        }
     }
 }

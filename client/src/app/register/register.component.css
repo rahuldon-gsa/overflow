@@ -5,3 +5,7 @@
 .btn {
     margin-top: 15px;
 }
+
+label.btn.btn-primary.accountType.active.focus{
+    background-color: #8064A2;
+}

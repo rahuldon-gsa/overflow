@@ -17,16 +17,6 @@ class RegisterController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-
-         grailsApplication.controllerClasses.each {
-             println it
-             if(it=='Register'){
-               it.getURIs().each {uri ->
-                 println  "${it.logicalPropertyName}.${it.getMethodActionName(uri)}"
-               }
-             }
-   }
- 
         params.max = Math.min(max ?: 10, 100)
         respond Register.list(params), model:[registerCount: Register.count()]
     }
@@ -34,23 +24,7 @@ class RegisterController {
     def show(Register register) {
         respond register
     }
-
-    def upload() {
-        println " ---------------- " + params
-    }
-
-     def handleFileUpload(MultipartFile file) {
-        println " working --- " + params
-        try {
-            println " 1 " + file.getBytes()
-            println " 2 " + file.getOriginalFilename()  
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }      
-    }
-
+ 
     @Transactional
     def save(Register register) {
         if (register == null) {

@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
-import {NavService} from './nav.service';
-import {OnInit} from '@angular/core';
+import { Component } from '@angular/core';
+import { NavService } from './nav.service';
+import { OnInit } from '@angular/core';
+import { AuthenticationService } from "../shared/services/authentication.service";
 
 @Component({
   selector: 'app-navigation',
@@ -10,10 +11,21 @@ import {OnInit} from '@angular/core';
 export class NavComponent implements OnInit {
 
   applicationData: any;
+  isUserLogged: boolean = false;
 
-  constructor(private navService: NavService) { }
+  constructor(private navService: NavService, private authenticationService: AuthenticationService) {   
+  }
 
   ngOnInit(): void {
     this.navService.getNavData().subscribe(res => this.applicationData = res);
+
+    if (sessionStorage.getItem('currentUser')) {
+      console.log("User already logged in, display logout link");
+      this.isUserLogged = true;
+    } 
   }
+
+  logoutCurrentUser() {
+    this.authenticationService.logout().subscribe(res => this.isUserLogged = false);
+  } 
 }

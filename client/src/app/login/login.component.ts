@@ -20,12 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    // reset login status
-    // this.authenticationService.logout(); 
-
-    // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
     this.errorMessage = sessionStorage.getItem('auth-message');
 
     if (sessionStorage.getItem('currentUser')) {
@@ -47,6 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authenticationService.authenticate(this.model.username, this.model.password)
       .subscribe(
       data => {
+        location.reload();
         this.router.navigate([this.returnUrl || '/']);
       },
       error => {

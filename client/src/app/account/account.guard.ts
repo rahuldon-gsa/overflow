@@ -13,9 +13,12 @@ export class AccountGuard implements CanActivate {
             return true;
         }
 
-        this.authenticationService.logout();
-        sessionStorage.setItem('auth-message', "Please login as user role for accessing account");
-        //this.router.navigate(['/login']);
+        this.authenticationService.logout().subscribe(res => {
+            location.reload()
+            this.router.navigate(['/login'])
+        });
+
+        sessionStorage.setItem('auth-message', "Please login for accessing account");
         return false;
     }
 }
