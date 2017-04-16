@@ -12,9 +12,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { RegisterModule } from './register/register.module';
 import { EqualValidator } from "./shared/validators/equal-validator.directive";
 import { LoginModule } from './login/login.module';
-import { AuthenticationService } from './shared/services/authentication.service'; 
-import { GlobalEventsManager } from './shared/services/global-events-manager'; 
+import { AuthenticationService } from './shared/services/authentication.service';
+import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { AccountModule } from './account/account.module';
+import { ToastyModule } from 'ng2-toasty';
 
 @NgModule({
   declarations: [
@@ -30,11 +31,12 @@ import { AccountModule } from './account/account.module';
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
+    ToastyModule.forRoot(),
     RegisterModule,
     LoginModule,
     AccountModule
-],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService, AuthenticationService, GlobalEventsManager],
+  ],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, AuthenticationService, GlobalEventsManager],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
