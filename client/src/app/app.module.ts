@@ -13,6 +13,7 @@ import { RegisterModule } from './register/register.module';
 import { EqualValidator } from "./shared/validators/equal-validator.directive";
 import { LoginModule } from './login/login.module';
 import { AuthenticationService } from './shared/services/authentication.service'; 
+import { GlobalEventsManager } from './shared/services/global-events-manager'; 
 import { AccountModule } from './account/account.module';
 
 @NgModule({
@@ -33,7 +34,7 @@ import { AccountModule } from './account/account.module';
     LoginModule,
     AccountModule
 ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService, AuthenticationService],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, NavService, AuthenticationService, GlobalEventsManager],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

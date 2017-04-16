@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from "../shared/services/authentication.service";
+import { GlobalEventsManager } from '../shared/services/global-events-manager';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService,
+    private globalEventsManager: GlobalEventsManager) { }
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -42,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authenticationService.authenticate(this.model.username, this.model.password)
       .subscribe(
       data => {
-        location.reload();
+        this.globalEventsManager.showNavBar(true);
         this.router.navigate([this.returnUrl || '/']);
       },
       error => {

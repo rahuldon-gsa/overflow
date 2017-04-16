@@ -1,3 +1,6 @@
+<p class="alert alert-info global-message" role="alert" *ngIf="message">
+  <strong>Heads up!</strong> {{message}}
+</p>
 <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse mb-4">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -5,8 +8,7 @@
     </button>
     <a class="navbar-brand" href="#">Bank Of America</a>
     <div class="collapse navbar-collapse  mt-2 mt-md-0" id="navbarCollapse">
-      <span class="navbar-nav mr-auto">
-        
+      <span class="navbar-nav mr-auto">        
       </span>
       <form class="form-inline mt-2 mt-md-0">
         <ul class="navbar-nav mr-auto">
