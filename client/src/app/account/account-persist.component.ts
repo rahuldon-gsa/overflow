@@ -8,7 +8,8 @@ import { State } from '../shared/interfaces/state';
 
 @Component({
   selector: 'account-persist',
-  templateUrl: './account-persist.component.html'
+  templateUrl: './account-persist.component.html',
+  styleUrls: ['./account.component.css'],
 })
 export class AccountPersistComponent implements OnInit {
 
@@ -18,6 +19,7 @@ export class AccountPersistComponent implements OnInit {
   errors: any[];
   incomeSources = ['Employment Income', 'Inheritance or Trust', 'Investment Income', 'Retirement Income', 'Social Security', 'Unemployment', 'Household Income']
   stateList = []; 
+  accountList: Account[] = []; 
 
   constructor(private route: ActivatedRoute, private accountService: AccountService, private router: Router) { }
 
@@ -34,6 +36,11 @@ export class AccountPersistComponent implements OnInit {
    
    let testt = _.toArray(this.stateJson);
    this.stateList = testt; 
+
+   this.accountService.list().subscribe((accountList: Account[]) => {
+      this.accountList = accountList;
+    });
+ 
   }
   
   lockAccount(value){ 

@@ -1,16 +1,16 @@
-<div class="container-fluid">
-  <div class="row justify-content-center">
+<div class="container">
 
+  <div class="row row-offcanvas row-offcanvas-right">
 
-    <div class="col-sm-6 align-self-center">
-
+    <div class="col-12 col-md-9">
+      
       <div id="persist-account" class="content scaffold-edit" role="main">
         <h1>{{create ? "Create" : "Edit"}} Account</h1>
         <ul class="errors" role="alert" *ngIf="errors">
           <li *ngFor="let error of errors">{{error.message}}</li>
         </ul>
         <hr>
-        <button *ngIf="account.type" class="btn btn-secondary btn-sm float-right" (click)="goBack()"> <i class="fa fa-step-backward" aria-hidden="true"></i> Go Back</button>
+        <button *ngIf="account.type && create" class="btn btn-secondary btn-sm float-right" (click)="goBack()"> <i class="fa fa-step-backward" aria-hidden="true"></i> Go Back</button>
 
 
         <h4 *ngIf="account.type">You are opening <span class="badge badge-pill badge-primary text-capitalize"> {{account.type}} Account</span> </h4>
@@ -22,7 +22,7 @@
                 <div class="card">
                   <div class="card-block">
                     <h3 class="card-title">Checking Bank Account</h3>
-                    <p class="card-text">A straightforward personal checking solution — good for those with direct deposit.</p>
+                    <p class="card-text">A straightforward personal checking solution — good for those with direct deposit.</p><br>
                     <button type="button" class="btn btn-primary" name="checkingtype" (click)="lockAccount('checking')">Open Checking Account</button>
                   </div>
                 </div>
@@ -171,5 +171,18 @@
         </form>
       </div>
     </div>
+    <!--/span-->
+
+    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar" *ngIf="accountList.length>0 && !create">
+      <div class="list-group account-list">
+       <span class="list-group-item text-primary">Account List</span>
+       <span *ngFor="let account of accountList; let e = even;"><a [routerLink]="['/account','edit',account.id]"  class="list-group-item text-capitalize">
+       <span class="badge badge-pill badge-default">{{account.type}} Account - {{account.num}}</span></a></span>
+   </div>
+    </div>
+    <!--/span-->
   </div>
+  <!--/row-->
+
+
 </div>
