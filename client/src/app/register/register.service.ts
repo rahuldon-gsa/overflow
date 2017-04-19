@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 
 import { environment } from '../../environments/environment';
+import { User } from '../user/user';
 
 @Injectable()
 export class RegisterService {
@@ -42,6 +43,29 @@ export class RegisterService {
       });
     return subject.asObservable();
   }
+
+  findUser(username: string): Observable<User> {
+    return this.http.get(this.baseUrl + 'register/changeUserPassword?username=' + username).map((r: Response) => new User(r.json()));
+  }
+
+  getUsername(firstName: string, lastName: string, mobile: string): Observable<Register> {
+    return this.http.get(this.baseUrl + 'register/getUserName?firstName=' + firstName + '&lastName=' + lastName + '&mobile=' + mobile).map((r: Response) => new Register(r.json()));
+  }
+
+  resetPassword(username: string): Observable<boolean> {
+    const options = new RequestOptions();
+    options.url = this.baseUrl + 'register/resetPassword';
+    options.body = JSON.stringify({ username: username });
+    options.method = RequestMethod.Post;
+    options.headers = new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    });
+    console.log("Request Options ::  " + options.body);
+    return this.http.request(new Request(options)).map((res: Response) => res.ok);
+  }
+
 
   get(id: number): Observable<Register> {
     return this.http.get(this.baseUrl + 'register/' + id)

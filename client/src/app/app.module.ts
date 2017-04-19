@@ -15,7 +15,7 @@ import { LoginModule } from './login/login.module';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { AccountModule } from './account/account.module';
-import { ToastyModule } from 'ng2-toasty';
+import { ToastyModule } from 'ng2-toasty'; 
 
 @NgModule({
   declarations: [
@@ -34,8 +34,8 @@ import { ToastyModule } from 'ng2-toasty';
     ToastyModule.forRoot(),
     RegisterModule,
     LoginModule,
-    AccountModule
-  ],
+    AccountModule 
+],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, NavService, AuthenticationService, GlobalEventsManager],
   bootstrap: [AppComponent]
 })

@@ -11,6 +11,8 @@ class UrlMappings {
         patch "/$controller/$id(.$format)?"(action:"patch")
 
         "/"(controller: 'application', action:'index')
+        "/register/changeUserPassword"(controller: 'register', action:'findUser')
+        "/register/getUserName"(controller: 'register', action:'findUserName')
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

@@ -13,11 +13,11 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link  btn-outline-success" href="/#/register">Registration</a>
+            <a class="nav-link  btn-outline-success" href="/#/register/create">Registration</a>
           </li>
           <li class="nav-item" *ngIf="isUserLogged">
-           <!-- <a class="nav-link  btn-outline-success" href="/#/account">Account</a> -->
-            <a  class="nav-link btn-outline-success" routerLink="/account">{{isUserLogged?'Account':''}}</a>
+            <a class="nav-link  btn-outline-success" href="/#/account/create">Account</a>
+            <!--<a  class="nav-link btn-outline-success" routerLink="/account/create">{{isUserLogged?'Account':''}}</a> -->
           </li>
           <li class="nav-item" *ngIf="!isUserLogged">
             <a class="nav-link  btn-outline-success" href="/#/login">Login</a>

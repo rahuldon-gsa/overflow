@@ -36,8 +36,14 @@ export class AccountPersistComponent implements OnInit {
    this.stateList = testt; 
   }
   
-  lockAccount(){ 
-    console.log("clicked : " + this.account.type);
+  lockAccount(value){ 
+    if(value!==undefined){
+      this.account.type = value;
+    }
+  }
+
+  goBack(){
+    this.account.type = null;
   }
 
   save() {

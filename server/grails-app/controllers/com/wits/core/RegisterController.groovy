@@ -14,11 +14,36 @@ import org.springframework.beans.PropertyAccessorFactory
 class RegisterController {
 
     static responseFormats = ['json', 'xml']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", resetPassword: "POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Register.list(params), model:[registerCount: Register.count()]
+    }
+
+    @Transactional
+    def findUser(String username) {
+        println "User username called :: " + username
+        def dbuser = User.findByUsername(username)
+        println "dbuser ::  " + dbuser
+        if (dbuser == null) {
+            render status: NOT_FOUND
+            return
+        }
+        dbuser.password = 'World@24'
+        dbuser.save()
+        respond status: OK
+    }
+
+    def findUserName(String firstName, String lastName, String mobile) {
+        println "User mobile called :: " + mobile 
+        def register = Register.findByFirstNameAndLastNameAndMobile(firstName, lastName, mobile)
+         if (register == null) {
+            render status: NOT_FOUND
+            return
+        }
+        println "Username found  :: " + register.email
+        respond register
     }
 
     def show(Register register) {
@@ -45,6 +70,28 @@ class RegisterController {
         UserRole.create registerUser, Role.findByAuthority("ROLE_USER"), true
 
         respond register, [status: CREATED, view:"show"]
+    }
+    
+    @Transactional
+    def resetPassword(String username) {
+
+        println "Calling password reset service ======= " + username
+        if (!username) {
+            transactionStatus.setRollbackOnly()
+            render status: NOT_FOUND
+            return
+        }
+
+        def reet = User.findByUsername(username)
+        println "User found :: " + reet?.id
+        if (reet == null) {
+            transactionStatus.setRollbackOnly()
+            render status: NOT_FOUND
+            return
+        }
+
+        def resetUser = new User(username: username, password: 'World@24').save()
+        respond status: OK
     }
 
     @Transactional

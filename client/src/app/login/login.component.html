@@ -2,7 +2,11 @@
     <div class="row justify-content-center">
         <div class="col-md-6 col-md-offset-3">
 
-            <h2>Login</h2>
+            <h2>
+                <p *ngIf="!isPassword && !isUsername">Login</p>
+                <p *ngIf="isPassword">Retrieve Password</p>
+                <p *ngIf="isUsername && !isPassword">Retrieve Username</p>
+            </h2>
 
             <p>
                 <ngb-alert [dismissible]="false" *ngIf="errorMessage">
@@ -10,9 +14,15 @@
                 </ngb-alert>
             </p>
 
-            <p><ngb-progressbar *ngIf="loading" type="warning" [value]="50" [striped]="true" [animated]="true"><i>Authenticating user</i></ngb-progressbar></p>
+            <p>
+                <ngb-progressbar *ngIf="loading" type="warning" [value]="50" [striped]="true" [animated]="true"><i>Authenticating user</i></ngb-progressbar>
+            </p>
 
-            <form name="form" (ngSubmit)="loginForm.form.valid && login()" #loginForm="ngForm" novalidate>
+            <div class="form-group  float-right" *ngIf="isUsername || isPassword">
+                <button class="btn btn-secondary btn-sm" (click)="loginAgain()"> <i class="fa fa-step-backward" aria-hidden="true"></i> Go Back</button>
+            </div>
+
+            <form name="loginform" (ngSubmit)="loginForm.form.valid && login()" #loginForm="ngForm" novalidate *ngIf="!isPassword && !isUsername">
                 <div class="form-group" [ngClass]="{ 'has-error': loginForm.submitted && !username.valid }">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
@@ -25,11 +35,81 @@
                     <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
                     <div *ngIf="password.errors && (password.dirty || password.touched)" class="alert alert-danger">Password is required</div>
                 </div>
+                <hr>
+                <div class="form-group  float-left">
+                    <button class="btn btn-secondary" (click)="forgetPassword()">Forgot Password</button>
+                    <button class="btn btn-secondary" (click)="forgetUserName()">Forgot Username</button>
+                </div>
                 <div class="form-group  float-right">
                     <a [routerLink]="['/register/create']" class="btn btn-link">Register</a>
                     <button [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
                 </div>
             </form>
+
+
+            <form name="passwordform" (ngSubmit)="passwordForm.form.valid && retrievePassword()" #passwordForm="ngForm" novalidate *ngIf="isPassword">
+                <div class="form-group" [ngClass]="{ 'has-error': passwordForm.submitted && !pusername.valid }">
+                    <label for="pusername">Username</label>
+                    <input type="email" class="form-control" name="pusername" [(ngModel)]="model.username" #pusername="ngModel" required />
+                    <div *ngIf="pusername.errors && (pusername.dirty || pusername.touched)" class="alert alert-danger">
+                        Username is required
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group  float-right">
+                    <button [disabled]="!passwordForm.valid" class="btn btn-primary">Retrieve Password</button>
+                </div>
+            </form>
+
+            <form name="usernameform" (ngSubmit)="usernameform.form.valid && retrieveUsername()" #usernameform="ngForm" novalidate *ngIf="isUsername">
+
+                <div class="form-group" [ngClass]="{ 'has-error': usernameform.submitted && !firstName.valid }">
+                    <label for="firstName">First Name <span class="required-indicator">*</span></label>
+                    <input required="" name="firstName" class="form-control" id="firstName" [(ngModel)]="model.firstName" type="text" #firstName="ngModel"
+                    />
+                    <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                        <div [hidden]="!firstName.errors.required">
+                            First Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': usernameform.submitted && !lastName.valid }">
+                    <label for="lastName">Last Name
+                  <span class="required-indicator">*</span>
+                </label>
+                    <input required="" name="lastName" class="form-control" id="lastName" [(ngModel)]="model.lastName" type="text" #lastName="ngModel"
+                    />
+                    <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+                        <div [hidden]="!lastName.errors.required">
+                            Last Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': usernameform.submitted && !lastName.valid }">
+                    <label for="mobile">Mobile
+                  <span class="required-indicator">*</span>
+                </label>
+                    <input required="" name="mobile" id="mobile" class="form-control" minlength="10" maxlength="10" [(ngModel)]="model.mobile"
+                        pattern="[0-9]+" type="text" #mobile="ngModel" />
+                    <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+                        <div [hidden]="!mobile.errors.required">
+                            Mobile Number is required
+                        </div>
+                        <div [hidden]="!mobile.errors.pattern">
+                            Mobile Number should be number
+                        </div>
+                        <div [hidden]="!mobile.errors.minlength">
+                            Mobile Number should be 10 digits
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="form-group  float-right">
+                        <button [disabled]="!usernameform.valid" class="btn btn-primary">Retrieve Username</button>
+                    </div>
+
+                </div>
+            </form>
+
         </div>
     </div>
-</div>
