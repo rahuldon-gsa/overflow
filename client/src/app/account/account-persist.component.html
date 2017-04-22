@@ -3,9 +3,9 @@
   <div class="row row-offcanvas row-offcanvas-right">
 
     <div class="col-12 col-md-9">
-      
+
       <div id="persist-account" class="content scaffold-edit" role="main">
-        <h1>{{create ? "Create" : "Edit"}} Account</h1>
+        <h1>{{create ? "Create" : ""}} Account</h1>
         <ul class="errors" role="alert" *ngIf="errors">
           <li *ngFor="let error of errors">{{error.message}}</li>
         </ul>
@@ -13,7 +13,8 @@
         <button *ngIf="account.type && create" class="btn btn-secondary btn-sm float-right" (click)="goBack()"> <i class="fa fa-step-backward" aria-hidden="true"></i> Go Back</button>
 
 
-        <h4 *ngIf="account.type">You are opening <span class="badge badge-pill badge-primary text-capitalize"> {{account.type}} Account</span> </h4>
+        <h4 *ngIf="account.type  && create">You are opening <span class="badge badge-pill badge-primary text-capitalize"> {{account.type}} Account</span> </h4>
+        <h4 *ngIf="!create"><span class="text-primary text-capitalize"> {{account.type}} Account # {{account.num}}</span> </h4>
         <form name="save{className}" (ngSubmit)="save()" #accountCreateForm="ngForm">
           <fieldset class="form">
 
@@ -74,13 +75,13 @@
               </div>
 
 
-              <div class="fieldcontain required">
+              <div class="fieldcontain required" *ngIf="create">
                 <label for="dateOfBirth">Date Of Birth
                     <span class="required-indicator">*</span>
                   </label>
                 <div class="input-group">
                   <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" id="dateOfBirth" [(ngModel)]="account.dateOfBirth"
-                    ngbDatepicker #dateOfBirth="ngbDatepicker">
+                    ngbDatepicker #dateOfBirth="ngbDatepicker" [maxDate]="maxDate">
                     <div class="input-group-addon" (click)="dateOfBirth.toggle()">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                     </div>
@@ -94,6 +95,16 @@
                 </div>
 
               </div>
+
+              <div class="fieldcontain required" *ngIf="!create">
+                <label for="dateOfBirth">Date Of Birth
+                  </label>
+                <div class="input-group">
+                  {{birthDate}}
+                </div>
+
+              </div>
+
 
 
               <div class="fieldcontain required">
@@ -175,10 +186,11 @@
 
     <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar" *ngIf="accountList.length>0 && !create">
       <div class="list-group account-list">
-       <span class="list-group-item text-primary">Account List</span>
-       <span *ngFor="let account of accountList; let e = even;"><a [routerLink]="['/account','edit',account.id]"  class="list-group-item text-capitalize">
-       <span class="badge badge-pill badge-default">{{account.type}} Account - {{account.num}}</span></a></span>
-   </div>
+        <span class="list-group-item text-primary">Account List</span>
+        <span *ngFor="let account of accountList; let e = even;"><a [routerLink]="['/account','edit',account.id]"  class="list-group-item text-capitalize">
+       <span class="badge badge-pill badge-default">{{account.type}} Account - {{account.num}}</span></a>
+        </span>
+      </div>
     </div>
     <!--/span-->
   </div>

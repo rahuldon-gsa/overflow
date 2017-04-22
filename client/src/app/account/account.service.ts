@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, RequestOptions, RequestMethod, Request, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Account} from './account';
-import {Subject} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptions, RequestMethod, Request, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Account } from './account';
+import { Subject } from 'rxjs/Subject';
 import * as _ from "lodash";
 
 import 'rxjs/add/operator/catch';
@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AccountService {
- 
+
   private baseUrl = environment.serverUrl;
 
   constructor(private http: Http) {
@@ -29,7 +29,7 @@ export class AccountService {
   }
 
   get(id: number): Observable<Account> {
-    return this.http.get(this.baseUrl + 'account/'+id)
+    return this.http.get(this.baseUrl + 'account/' + id)
       .map((r: Response) => new Account(r.json()));
   }
 
@@ -41,12 +41,24 @@ export class AccountService {
     } else {
       requestOptions.method = RequestMethod.Post;
       requestOptions.url = this.baseUrl + 'account';
+
+      let birthDate = new Date();
+      birthDate.setMonth(account.dateOfBirth.month - 1);
+      birthDate.setDate(account.dateOfBirth.day);
+      birthDate.setFullYear(account.dateOfBirth.year);
+
+      console.log("Date of Birth before save :: " + birthDate);
+
+      account.dateOfBirth = null;
+      account.dateOfBirth = birthDate;
+      
+      account.num = _.random(0, 99999999).toString();
+      console.log("Random :: " + account.num);
     }
 
-    account.num = _.random(0, 99999999).toString();
-    console.log("Random :: " + account.num);
+
     requestOptions.body = JSON.stringify(account);
-    requestOptions.headers = new Headers({"Content-Type": "application/json"});
+    requestOptions.headers = new Headers({ "Content-Type": "application/json" });
 
     return this.http.request(new Request(requestOptions))
       .map((r: Response) => new Account(r.json()));

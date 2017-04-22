@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     if (sessionStorage.getItem('currentUser')) {
       console.log("User already logged in, redirecting to refering page");
+      this.globalEventsManager.showMessage("User already logged in !!");
       this.router.navigate([this.returnUrl || '/']);
     }
   }

@@ -15,7 +15,7 @@
           <li class="nav-item">
             <a class="nav-link  btn-outline-success" href="/#/register/create">Registration</a>
           </li>
-          <li class="nav-item" *ngIf="isUserLogged">
+          <li class="nav-item" *ngIf="isUserLogged && !isUserAdmin">
             <a class="nav-link  btn-outline-success" href="/#/account/create">Account</a>
             <!--<a  class="nav-link btn-outline-success" routerLink="/account/create">{{isUserLogged?'Account':''}}</a> -->
           </li>

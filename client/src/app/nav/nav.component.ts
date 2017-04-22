@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ElementRef } from '@angular/core';
-import { OnInit } from '@angular/core'; 
+import { OnInit } from '@angular/core';
 
 import { NavService } from './nav.service';
 import { AuthenticationService } from "../shared/services/authentication.service";
@@ -15,6 +15,8 @@ export class NavComponent implements OnInit {
 
   applicationData: any;
   isUserLogged: boolean = false;
+  isUserAdmin: boolean = false;
+  isNormalUser: boolean = false;
 
   constructor(private navService: NavService, private authenticationService: AuthenticationService,
     private globalEventsManager: GlobalEventsManager) {
@@ -24,7 +26,21 @@ export class NavComponent implements OnInit {
       if (mode !== null) {
         this.isUserLogged = mode;
       }
+      this.setUserRole();
     });
+  }
+
+  setUserRole() {
+    let userRole = sessionStorage.getItem('userRole');
+    if (userRole === 'ROLE_ADMIN') {
+      this.isUserAdmin = true;
+      this.isUserLogged = true;
+      this.isNormalUser = false;
+    } else if (userRole === 'ROLE_USER') {
+      this.isNormalUser = true;
+      this.isUserLogged = true;
+      this.isUserAdmin = false;
+    }
   }
 
   ngOnInit(): void {
