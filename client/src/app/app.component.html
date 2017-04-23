@@ -1,5 +1,22 @@
 <app-navigation></app-navigation>
 <main>
+
+<button type="button" #modalTimeout (click)="modal3.show()" style="display: none;" data-backdrop="static" data-keyboard="false">test</button>
+  
+  <app-modal #modal3>
+    <div class="app-modal-header">
+      Application Time Out
+    </div>
+    <div class="app-modal-body">
+      Please extend time out or sign out.
+    </div>
+    <div class="app-modal-footer">
+      <button type="button" class="btn btn-warning" (click)="modal3.hide(); reset();">Extend Session</button>
+      <button type="button" class="btn btn-danger">Sign Out</button>    
+    </div>
+  </app-modal>
+
   <router-outlet></router-outlet>
+
 </main>
 <ng2-toasty [position]="'bottom-right'"></ng2-toasty>

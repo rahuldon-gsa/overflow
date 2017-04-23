@@ -4,6 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToastyModule } from 'ng2-toasty'; 
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive'; // this includes the core NgIdleModule but includes keepalive providers for easy wireup
+import { MomentModule } from 'angular2-moment'; // optional, provides moment-style pipes for date formatting
+
 import { IndexComponent } from './index/index.component';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -15,14 +19,15 @@ import { LoginModule } from './login/login.module';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { AccountModule } from './account/account.module';
-import { ToastyModule } from 'ng2-toasty'; 
+import { TimeoutModalComponent } from './shared/component/timeout-modal/timeout-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     IndexComponent,
-    EqualValidator
+    EqualValidator,
+    TimeoutModalComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,9 @@ import { ToastyModule } from 'ng2-toasty';
     AppRoutingModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
-    ToastyModule.forRoot(),
+    ToastyModule.forRoot(), 
+    MomentModule,
+    NgIdleKeepaliveModule.forRoot(),
     RegisterModule,
     LoginModule,
     AccountModule 
