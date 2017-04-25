@@ -2,17 +2,18 @@
 <main>
 
 <button type="button" #modalTimeoutButton (click)="modal3.show()" style="display: none;" data-backdrop="static" data-keyboard="false">test</button>
+<button type="button" #modalTimeoutHideButton (click)="modal3.hide()" style="display: none;" data-backdrop="static" data-keyboard="false">test</button>
   
   <app-modal #modal3>
     <div class="app-modal-header">
       Application Time Out
     </div>
     <div class="app-modal-body">
-      Please extend time out or sign out.
+      Please extend time out or sign out. <br> Time left {{idleState}} 
     </div>
     <div class="app-modal-footer">
-      <button type="button" class="btn btn-warning" (click)="modal3.hide(); reset();">Extend Session</button>
-      <button type="button" class="btn btn-danger" (click)="logoutCurrentUser()">Sign Out</button>    
+      <button type="button" *ngIf="!timedOut" class="btn btn-warning" (click)="modal3.hide(); reset();">Extend Session</button>
+      <button type="button" *ngIf="!timedOut" class="btn btn-danger" (click)="logoutCurrentUser()">Sign Out</button>    
     </div>
   </app-modal>
 
