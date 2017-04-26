@@ -175,7 +175,7 @@
           </fieldset>
           <hr>
           <fieldset class="buttons clearfix" *ngIf="account.type">
-            <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Create Account' : 'Update Account'" [disabled]="!accountCreateForm.valid"
+            <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Create Account' : 'Update Account'" [disabled]="!accountCreateForm.valid || !accountCreateForm.dirty"
             />
           </fieldset>
 
@@ -185,12 +185,17 @@
     <!--/span-->
 
     <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar" *ngIf="accountList.length>0 && !create">
+
+      <!-- Add form for the deposit -->
+      <account-deposit></account-deposit>
+
       <div class="list-group account-list">
         <span class="list-group-item text-primary">Account List</span>
         <span *ngFor="let account of accountList; let e = even;"><a [routerLink]="['/account','edit',account.id]"  class="list-group-item text-capitalize">
-       <span class="badge badge-pill badge-default">{{account.type}} Account - {{account.num}}</span></a>
+        <span class="badge badge-pill badge-default">{{account.type}} Account - {{account.num}}</span></a>
         </span>
       </div>
+
     </div>
     <!--/span-->
   </div>

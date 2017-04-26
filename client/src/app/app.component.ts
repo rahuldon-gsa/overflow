@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Keepalive } from '@ng-idle/keepalive';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
@@ -24,7 +25,8 @@ export class AppComponent {
 
 
   constructor(private authenticationService: AuthenticationService, private globalEventsManager: GlobalEventsManager,
-    private toastyService: ToastyService, private toastyConfig: ToastyConfig, private idle: Idle, private keepalive: Keepalive) {
+    private router: Router, private toastyService: ToastyService, private toastyConfig: ToastyConfig,
+    private idle: Idle, private keepalive: Keepalive) {
 
     this.toastyConfig.theme = 'material';
 
@@ -60,7 +62,7 @@ export class AppComponent {
     // sets an idle timeout of 5 seconds, for testing purposes.
     this.idle.setIdle(600);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    this.idle.setTimeout(60);
+    this.idle.setTimeout(600);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
@@ -118,8 +120,10 @@ export class AppComponent {
 
   logoutCurrentUser() {
     this.authenticationService.logout().subscribe(res => {
+      sessionStorage.setItem('auth-message', "User logged out due to session timeout !!");
+      this.timeoutModalHide.nativeElement.click();
+      this.router.navigate(['/login']);
       location.reload();
-      this.globalEventsManager.showMessage("User logged out due to session timeout !!");
     }
     );
   }

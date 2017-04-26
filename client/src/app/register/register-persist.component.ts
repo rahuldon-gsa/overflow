@@ -4,6 +4,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Register } from './register';
 import { RegisterService } from './register.service';
 import { Response } from "@angular/http";
+import { GlobalEventsManager } from '../shared/services/global-events-manager';
 
 @Component({
   selector: 'register-persist',
@@ -17,7 +18,7 @@ export class RegisterPersistComponent implements OnInit {
   errors: any[];
   genders = ['Male', 'Female', 'Other']; 
 
-  constructor(private route: ActivatedRoute, private registerService: RegisterService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private registerService: RegisterService, private router: Router,  private globalEventsManager: GlobalEventsManager) { }
 
   ngOnInit() { 
     this.route.params.subscribe((params: Params) => {
@@ -32,7 +33,8 @@ export class RegisterPersistComponent implements OnInit {
 
   save() {
     this.registerService.save(this.register).subscribe((register: Register) => {
-      this.router.navigate(['/register', 'show', register.id]);
+      this.router.navigate(['/']);
+      this.globalEventsManager.showMessage("Registered Successfully !!");
     }, (res: Response) => {
       const json = res.json();
       if (json.hasOwnProperty('message')) {

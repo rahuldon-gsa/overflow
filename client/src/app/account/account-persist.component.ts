@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Account } from './account';
@@ -7,6 +7,7 @@ import { Response } from "@angular/http";
 import * as _ from "lodash";
 import { State } from '../shared/interfaces/state';
 import { GlobalEventsManager } from '../shared/services/global-events-manager';
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: 'account-persist',
@@ -15,6 +16,8 @@ import { GlobalEventsManager } from '../shared/services/global-events-manager';
   providers: [DatePipe]
 })
 export class AccountPersistComponent implements OnInit {
+
+  @ViewChild('accountCreateForm') accountCreateForm: NgForm;
 
   stateJson = require('../shared/data/states.json');
   account = new Account();
@@ -36,6 +39,7 @@ export class AccountPersistComponent implements OnInit {
           this.create = false;
           this.account = account;
           this.updateBirthDate();
+          // this.accountCreateForm.dirty; // MArk dirty to disable submit button
         });
       }
     });
@@ -64,9 +68,9 @@ export class AccountPersistComponent implements OnInit {
 
   save() {
     if (!this.create) {
-     
+
       let birthDate1 = new Date(this.birthDate);
-      birthDate1.setMonth(this.birthDate.month - 1);  
+      birthDate1.setMonth(this.birthDate.month - 1);
 
       this.account.dateOfBirth = birthDate1;
     }
