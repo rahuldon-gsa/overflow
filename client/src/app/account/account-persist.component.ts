@@ -28,6 +28,8 @@ export class AccountPersistComponent implements OnInit {
   accountList: Account[] = [];
   birthDate: any;
 
+  currentBalance : any;
+
   constructor(private route: ActivatedRoute, private accountService: AccountService, private router: Router, private datePipe: DatePipe,
     private globalEventsManager: GlobalEventsManager) { }
 
@@ -40,6 +42,7 @@ export class AccountPersistComponent implements OnInit {
           this.account = account;
           this.updateBirthDate();
           // this.accountCreateForm.dirty; // MArk dirty to disable submit button
+          this.currentBalance = account.balance; // To pass data into child component 
         });
       }
     });

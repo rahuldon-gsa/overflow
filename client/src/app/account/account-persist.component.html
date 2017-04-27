@@ -105,7 +105,22 @@
 
               </div>
 
+               <div class="fieldcontain required"  *ngIf="create">
+                <label for="balance">Opening Balance
+                    <span class="required-indicator">*</span>
+                  </label>
+                <input class="form-control" required="" name="balance" maxlength="8" id="balance" [(ngModel)]="account.balance" pattern="[0-9]+"
+                  type="text" #balance="ngModel" />
 
+                <div *ngIf="balance.errors && (balance.dirty || balance.touched)" class="alert alert-danger">
+                  <div [hidden]="!balance.errors.required">
+                    Balance is required
+                  </div>
+                  <div [hidden]="!balance.errors.pattern">
+                    Balance should be number
+                  </div>
+                </div>
+              </div>
 
               <div class="fieldcontain required">
                 <label for="address1">Address1
@@ -187,7 +202,7 @@
     <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar" *ngIf="accountList.length>0 && !create">
 
       <!-- Add form for the deposit -->
-      <account-deposit></account-deposit>
+      <account-deposit [currentBalance]="currentBalance"></account-deposit>
 
       <div class="list-group account-list">
         <span class="list-group-item text-primary">Account List</span>

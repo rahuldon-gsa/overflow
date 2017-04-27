@@ -13,6 +13,7 @@ export class Account {
   source: string;
   type: string;
   salary: string;
+  balance: number
 
   constructor (object?: any) {
     if (object) {
