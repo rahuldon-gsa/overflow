@@ -81,7 +81,8 @@
                   </label>
                 <div class="input-group">
                   <input class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" id="dateOfBirth" [(ngModel)]="account.dateOfBirth"
-                    ngbDatepicker #dateOfBirth="ngbDatepicker" [maxDate]="maxDate">
+                    ngbDatepicker #dateOfBirth="ngbDatepicker" [minDate]="minAllowedDate" [maxDate]="maxAllowedDate" [disabled]="true">
+
                     <div class="input-group-addon" (click)="dateOfBirth.toggle()">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                     </div>
@@ -105,7 +106,7 @@
 
               </div>
 
-               <div class="fieldcontain required"  *ngIf="create">
+              <div class="fieldcontain required" *ngIf="create">
                 <label for="balance">Opening Balance
                     <span class="required-indicator">*</span>
                   </label>
@@ -193,24 +194,26 @@
             <input type="submit" class="btn btn-primary float-right" [value]="create ? 'Create Account' : 'Update Account'" [disabled]="!accountCreateForm.valid || !accountCreateForm.dirty"
             />
           </fieldset>
+          <br>
 
         </form>
       </div>
     </div>
     <!--/span-->
 
-    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar" *ngIf="accountList.length>0 && !create">
+    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
 
       <!-- Add form for the deposit -->
-      <account-deposit [currentBalance]="currentBalance"></account-deposit>
-
-      <div class="list-group account-list">
-        <span class="list-group-item text-primary">Account List</span>
+      <account-deposit class="list-group account-list" [currentBalance]="currentBalance" *ngIf="accountList.length>0 && !create"></account-deposit>
+      <hr>
+      <div class="list-group ">
+         <div class="card-header text-center card-inverse card-primary">
+          <h4>Account List</h4>
+        </div>        
         <span *ngFor="let account of accountList; let e = even;"><a [routerLink]="['/account','edit',account.id]"  class="list-group-item text-capitalize">
         <span class="badge badge-pill badge-default">{{account.type}} Account - {{account.num}}</span></a>
         </span>
       </div>
-
     </div>
     <!--/span-->
   </div>

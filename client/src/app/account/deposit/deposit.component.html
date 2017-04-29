@@ -1,17 +1,17 @@
-<div class="card" style="width: 20rem;">
-    <div class="card-block">
+<div class="card" >
+    <div class="card-block  text-center">
         <h4 class="card-title"> Available Balance </h4>
         <p class="card-text "> $ <span class="badge badge-pill badge-success">{{storedAccount?.balance}}</span></p>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">
+        <li class="list-group-item"> 
             <div class="form-group " [ngClass]="{'has-danger': amount.touched && amount.invalid, 'has-success': amount.valid && amount.touched }">
                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                     <div class="input-group-addon">$</div>
-                    <input type="text" class="form-control" maxlength="8" placeholder="Enter Deposit Amount" [formControl]="amount">
+                    <input type="text" class="form-control" maxlength="8" placeholder="Enter Amount" [formControl]="amount">
                 </div>
-                <div *ngIf="amount.errors?.notNumber" class="form-control-feedback">Please enter number only.</div>
-                <div *ngIf="amount.errors?.notDecimal" class="form-control-feedback">Please enter 2 digit amount only.</div>
+                <div *ngIf="amount.errors?.notNumber" ><small class="text-muted "><em class="alert-danger">Please enter number only.</em></small></div>
+                <div *ngIf="amount.errors?.notDecimal" ><small class="text-muted "><em class="alert-danger">Please enter 2 digit amount only.</em></small></div>
             </div>
         </li>
     </ul>

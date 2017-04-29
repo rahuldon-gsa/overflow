@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Account } from './account';
@@ -8,6 +8,9 @@ import * as _ from "lodash";
 import { State } from '../shared/interfaces/state';
 import { GlobalEventsManager } from '../shared/services/global-events-manager';
 import { NgForm } from "@angular/forms";
+import { NgbDateStruct, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+
+const now = new Date();
 
 @Component({
   selector: 'account-persist',
@@ -15,7 +18,7 @@ import { NgForm } from "@angular/forms";
   styleUrls: ['./account.component.css'],
   providers: [DatePipe]
 })
-export class AccountPersistComponent implements OnInit {
+export class AccountPersistComponent implements OnInit, OnChanges {
 
   @ViewChild('accountCreateForm') accountCreateForm: NgForm;
 
@@ -28,10 +31,14 @@ export class AccountPersistComponent implements OnInit {
   accountList: Account[] = [];
   birthDate: any;
 
-  currentBalance : any;
+  minAllowedDate: NgbDateStruct = { year: now.getFullYear() - 120, month: now.getMonth() + 1, day: now.getDate() };
+  maxAllowedDate: NgbDateStruct = { year: now.getFullYear() - 10, month: now.getMonth() + 1, day: now.getDate() };
+
+  currentBalance: any;
 
   constructor(private route: ActivatedRoute, private accountService: AccountService, private router: Router, private datePipe: DatePipe,
-    private globalEventsManager: GlobalEventsManager) { }
+    private globalEventsManager: GlobalEventsManager) {
+  }
 
   ngOnInit() {
 
@@ -59,6 +66,10 @@ export class AccountPersistComponent implements OnInit {
     this.birthDate = this.datePipe.transform(this.account.dateOfBirth, 'yyyy-MM-dd');
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+  }
+
   lockAccount(value) {
     if (value !== undefined) {
       this.account.type = value;
@@ -70,6 +81,7 @@ export class AccountPersistComponent implements OnInit {
   }
 
   save() {
+
     if (!this.create) {
 
       let birthDate1 = new Date(this.birthDate);
@@ -77,9 +89,11 @@ export class AccountPersistComponent implements OnInit {
 
       this.account.dateOfBirth = birthDate1;
     }
+
+
     this.accountService.save(this.account).subscribe((account: Account) => {
       this.updateBirthDate();
-      this.router.navigate(['/account', 'edit', account.id]);
+      this.router.navigate(['/account', 'edit', account.id], { skipLocationChange: true });
       this.globalEventsManager.showMessage("Account updated successfully !!");
     }, (res: Response) => {
       const json = res.json();
