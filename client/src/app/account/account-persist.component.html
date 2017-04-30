@@ -15,7 +15,7 @@
 
         <h4 *ngIf="account.type  && create">You are opening <span class="badge badge-pill badge-primary text-capitalize"> {{account.type}} Account</span> </h4>
         <h4 *ngIf="!create"><span class="text-primary text-capitalize"> {{account.type}} Account # {{account.num}}</span> </h4>
-        <form name="save{className}" (ngSubmit)="save()" #accountCreateForm="ngForm">
+        <form name="save{className}" (ngSubmit)="save()" #accountCreateForm="ngForm" novalidate>
           <fieldset class="form">
 
             <div class="row" *ngIf="!account.type">
@@ -201,12 +201,12 @@
     </div>
     <!--/span-->
 
-    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar">
+    <div class="col-6 col-md-3 sidebar-offcanvas" id="sidebar"  *ngIf="accountList?.length > 0">
 
       <!-- Add form for the deposit -->
       <account-deposit class="list-group account-list" [currentBalance]="currentBalance" *ngIf="accountList.length>0 && !create"></account-deposit>
       <hr>
-      <div class="list-group ">
+      <div class="list-group">
          <div class="card-header text-center card-inverse card-primary">
           <h4>Account List</h4>
         </div>        
