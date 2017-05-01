@@ -7,8 +7,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 })
 export class TimeoutModalComponent implements OnInit {
 
-  public visible = false;
-  private visibleAnimate = false;
+  visible = false;
+  visibleAnimate = false;
  
   constructor(public elementRef: ElementRef){}
   ngOnInit() {

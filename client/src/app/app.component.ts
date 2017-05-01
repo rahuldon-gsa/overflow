@@ -25,7 +25,7 @@ export class AppComponent{
   @ViewChild('modalTimeoutButton') timeoutModal: ElementRef;
   @ViewChild('modalTimeoutHideButton') timeoutModalHide: ElementRef;
 
-  @ViewChild(NavComponent) private navComponent: NavComponent;
+  @ViewChild(NavComponent) navComponent: NavComponent;
 
 
   constructor(private authenticationService: AuthenticationService, private globalEventsManager: GlobalEventsManager,

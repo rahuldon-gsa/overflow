@@ -68,7 +68,7 @@
                     <input required="" name="firstName" class="form-control" id="firstName" [(ngModel)]="model.firstName" type="text" #firstName="ngModel"
                     />
                     <div *ngIf="firstName.errors && (firstName.dirty || firstName.touched)" class="alert alert-danger">
-                        <div [hidden]="!firstName.errors.required">
+                        <div [hidden]="!firstName.hasError('required')">
                             First Name is required
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                     <input required="" name="lastName" class="form-control" id="lastName" [(ngModel)]="model.lastName" type="text" #lastName="ngModel"
                     />
                     <div *ngIf="lastName.errors && (lastName.dirty || lastName.touched)" class="alert alert-danger">
-                        <div [hidden]="!lastName.errors.required">
+                        <div [hidden]="!lastName.hasError('required')">
                             Last Name is required
                         </div>
                     </div>
@@ -92,13 +92,13 @@
                     <input required="" name="mobile" id="mobile" class="form-control" minlength="10" maxlength="10" [(ngModel)]="model.mobile"
                         pattern="[0-9]+" type="text" #mobile="ngModel" />
                     <div *ngIf="mobile.errors && (mobile.dirty || mobile.touched)" class="alert alert-danger">
-                        <div [hidden]="!mobile.errors.required">
+                        <div [hidden]="!mobile.hasError('required')">
                             Mobile Number is required
                         </div>
-                        <div [hidden]="!mobile.errors.pattern">
+                        <div [hidden]="!mobile.hasError('pattern')">
                             Mobile Number should be number
                         </div>
-                        <div [hidden]="!mobile.errors.minlength">
+                        <div [hidden]="!mobile.hasError('minlength')">
                             Mobile Number should be 10 digits
                         </div>
                     </div>

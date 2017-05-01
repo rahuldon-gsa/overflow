@@ -10,8 +10,8 @@
                     <div class="input-group-addon">$</div>
                     <input type="text" class="form-control" maxlength="8" placeholder="Enter Amount" [formControl]="amount">
                 </div>
-                <div *ngIf="amount.errors?.notNumber" ><small class="text-muted "><em class="alert-danger">Please enter number only.</em></small></div>
-                <div *ngIf="amount.errors?.notDecimal" ><small class="text-muted "><em class="alert-danger">Please enter 2 digit amount only.</em></small></div>
+                <div *ngIf="amount.hasError('notNumber')" ><small class="text-muted "><em class="alert-danger">Please enter number only.</em></small></div>
+                <div *ngIf="amount.hasError('notDecimal')" ><small class="text-muted "><em class="alert-danger">Please enter 2 digit amount only.</em></small></div>
             </div>
         </li>
     </ul>

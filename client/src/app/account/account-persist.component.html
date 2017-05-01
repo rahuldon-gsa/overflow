@@ -50,7 +50,7 @@
                               </select>
 
                 <div *ngIf="source.errors && (source.dirty || source.touched)" class="alert alert-danger">
-                  <div [hidden]="!source.errors.required">
+                  <div [hidden]="!source.hasError('required')">
                     Source is required
                   </div>
                 </div>
@@ -65,10 +65,10 @@
                   type="text" #salary="ngModel" />
 
                 <div *ngIf="salary.errors && (salary.dirty || salary.touched)" class="alert alert-danger">
-                  <div [hidden]="!salary.errors.required">
+                  <div [hidden]="!salary.hasError('required')">
                     Salary is required
                   </div>
-                  <div [hidden]="!salary.errors.pattern">
+                  <div [hidden]="!salary.hasError('pattern')">
                     Salary should be number
                   </div>
                 </div>
@@ -88,13 +88,14 @@
                     </div>
                 </div>
 
+<!--
 
                 <div *ngIf="dateOfBirth.errors && (dateOfBirth.dirty || dateOfBirth.touched)" class="alert alert-danger">
-                  <div [hidden]="!dateOfBirth.errors.required">
+                  <div [hidden]="!dateOfBirth.hasError('required')">
                     Date of Birth is required
                   </div>
                 </div>
-
+-->
               </div>
 
               <div class="fieldcontain required" *ngIf="!create">
@@ -114,10 +115,10 @@
                   type="text" #balance="ngModel" />
 
                 <div *ngIf="balance.errors && (balance.dirty || balance.touched)" class="alert alert-danger">
-                  <div [hidden]="!balance.errors.required">
+                  <div [hidden]="!balance.hasError('required')">
                     Balance is required
                   </div>
-                  <div [hidden]="!balance.errors.pattern">
+                  <div [hidden]="!balance.hasError('pattern')">
                     Balance should be number
                   </div>
                 </div>
@@ -131,7 +132,7 @@
                 />
 
                 <div *ngIf="address1.errors && (address1.dirty || address1.touched)" class="alert alert-danger">
-                  <div [hidden]="!address1.errors.required">
+                  <div [hidden]="!address1.hasError('required')">
                     Address1 is required
                   </div>
                 </div>
@@ -149,7 +150,7 @@
                 <input class="form-control" required="" name="city" id="city" [(ngModel)]="account.city" type="text" #city="ngModel" />
 
                 <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
-                  <div [hidden]="!city.errors.required">
+                  <div [hidden]="!city.hasError('required')">
                     City is required
                   </div>
                 </div>
@@ -163,7 +164,7 @@
                               </select>
 
                 <div *ngIf="state.errors && (state.dirty || state.touched)" class="alert alert-danger">
-                  <div [hidden]="!state.errors.required">
+                  <div [hidden]="!state.hasError('required')">
                     State is required
                   </div>
                 </div>
@@ -176,13 +177,13 @@
                   pattern="[0-9]+" type="text" #zipCode="ngModel" />
 
                 <div *ngIf="zipCode.errors && (zipCode.dirty || zipCode.touched)" class="alert alert-danger">
-                  <div [hidden]="!zipCode.errors.required">
+                  <div [hidden]="!zipCode.hasError('required')">
                     ZipCode is required
                   </div>
-                  <div [hidden]="!zipCode.errors.pattern">
+                  <div [hidden]="!zipCode.hasError('pattern')">
                     ZipCode should be number
                   </div>
-                  <div [hidden]="!zipCode.errors.minlength">
+                  <div [hidden]="!zipCode.hasError('minlength')">
                     ZipCode should be 5 digits
                   </div>
                 </div>
