@@ -6,12 +6,13 @@ import { Keepalive } from '@ng-idle/keepalive';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalEventsManager } from './shared/services/global-events-manager';
 import { AuthenticationService } from "./shared/services/authentication.service";
+import { NavComponent } from "./nav/nav.component";
 
 @Component({
   selector: 'app',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent{
 
   closeResult: string;
 
@@ -19,9 +20,12 @@ export class AppComponent {
   timedOut = false;
   lastPing?: Date = null;
   isTimeRunningOut: any;
+  globalMessage: string;
 
   @ViewChild('modalTimeoutButton') timeoutModal: ElementRef;
   @ViewChild('modalTimeoutHideButton') timeoutModalHide: ElementRef;
+
+  @ViewChild(NavComponent) private navComponent: NavComponent;
 
 
   constructor(private authenticationService: AuthenticationService, private globalEventsManager: GlobalEventsManager,
@@ -60,9 +64,9 @@ export class AppComponent {
 
   kickMeOut() {
     // sets an idle timeout of 5 seconds, for testing purposes.
-    this.idle.setIdle(600);
+    this.idle.setIdle(3);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    this.idle.setTimeout(600);
+    this.idle.setTimeout(3);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
@@ -103,7 +107,7 @@ export class AppComponent {
     });
 
     // sets the ping interval to 15 seconds
-    this.keepalive.interval(500);
+    this.keepalive.interval(5);
 
     this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
 
@@ -122,9 +126,14 @@ export class AppComponent {
     this.authenticationService.logout().subscribe(res => {
       sessionStorage.setItem('auth-message', "User logged out due to session timeout !!");
       this.timeoutModalHide.nativeElement.click();
-      this.router.navigate(['/login']);
-      location.reload();
+      this.navComponent.setUserRole();
+    }, err => { }, () => {
+      this.takeMeHome();
     }
     );
+  }
+
+  takeMeHome() {
+    this.router.navigate(['/']);
   }
 }

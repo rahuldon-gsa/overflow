@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.errorMessage = sessionStorage.getItem('auth-message');
 
     if (sessionStorage.getItem('currentUser')) {
-      console.log("User already logged in, redirecting to refering page");
-      this.globalEventsManager.showMessage("User already logged in !!");
-      this.router.navigate([this.returnUrl || '/']);
+      //console.log("User already logged in, redirecting to refering page");
+      //this.globalEventsManager.showMessage("User already logged in !!");
+      this.router.navigate(['/']);
     }
   }
 
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe(
       data => {
         this.globalEventsManager.showNavBar(true);
-        this.router.navigate([this.returnUrl || '/']);
+        this.router.navigate(['/']);
       },
       error => {
         this.loading = false;
@@ -61,6 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         } else {
           this.errorMessage = error;
         }
+      },()=>{
+        location.reload();
       });
   }
 

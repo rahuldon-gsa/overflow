@@ -40,6 +40,10 @@ export class NavComponent implements OnInit {
       this.isNormalUser = true;
       this.isUserLogged = true;
       this.isUserAdmin = false;
+    } else{
+      this.isNormalUser = false;
+      this.isUserLogged = false;
+      this.isUserAdmin = false;
     }
   }
 
