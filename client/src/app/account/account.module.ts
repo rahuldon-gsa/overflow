@@ -7,16 +7,12 @@ import {AccountService} from './account.service';
 
 
 import {AccountRoutingModule} from './account-routing.module';
-import {AccountShowComponent} from './account-show.component';
-import {AccountListComponent} from './account-list.component';
 import {AccountPersistComponent} from './account-persist.component';
 import { DepositComponent } from './deposit/deposit.component';
 
 @NgModule({
   declarations: [
-    AccountListComponent,
     AccountPersistComponent,
-    AccountShowComponent,
     DepositComponent
   ],
   imports: [

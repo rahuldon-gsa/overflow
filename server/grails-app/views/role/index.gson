@@ -1,8 +1,0 @@
-import com.wits.sec.Role
-
-model {
-	Iterable<Role> roleList
-}
-
-json tmpl.role(roleList ?: [])
-

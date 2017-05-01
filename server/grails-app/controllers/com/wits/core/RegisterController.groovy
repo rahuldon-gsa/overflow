@@ -23,9 +23,7 @@ class RegisterController {
 
     @Transactional
     def findUser(String username) {
-        println "User username called :: " + username
         def dbuser = User.findByUsername(username)
-        println "dbuser ::  " + dbuser
         if (dbuser == null) {
             render status: NOT_FOUND
             return
@@ -36,13 +34,11 @@ class RegisterController {
     }
 
     def findUserName(String firstName, String lastName, String mobile) {
-        println "User mobile called :: " + mobile 
         def register = Register.findByFirstNameAndLastNameAndMobile(firstName, lastName, mobile)
          if (register == null) {
             render status: NOT_FOUND
             return
         }
-        println "Username found  :: " + register.email
         respond register
     }
 
@@ -75,7 +71,6 @@ class RegisterController {
     @Transactional
     def resetPassword(String username) {
 
-        println "Calling password reset service ======= " + username
         if (!username) {
             transactionStatus.setRollbackOnly()
             render status: NOT_FOUND
@@ -83,7 +78,6 @@ class RegisterController {
         }
 
         def reet = User.findByUsername(username)
-        println "User found :: " + reet?.id
         if (reet == null) {
             transactionStatus.setRollbackOnly()
             render status: NOT_FOUND

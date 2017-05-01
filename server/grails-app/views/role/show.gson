@@ -1,7 +1,0 @@
-import com.wits.sec.Role
-
-model {
-	Role role
-}
-
-json tmpl.role(role)

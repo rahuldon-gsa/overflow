@@ -7,15 +7,11 @@ import {RegisterService} from './register.service';
 
 
 import {RegisterRoutingModule} from './register-routing.module';
-import {RegisterShowComponent} from './register-show.component';
-import {RegisterListComponent} from './register-list.component';
 import {RegisterPersistComponent} from './register-persist.component';
 
 @NgModule({
   declarations: [
-    RegisterListComponent,
-    RegisterPersistComponent,
-    RegisterShowComponent
+    RegisterPersistComponent
   ],
   imports: [
     CommonModule, 

@@ -64,9 +64,9 @@ export class AppComponent{
 
   kickMeOut() {
     // sets an idle timeout of 5 seconds, for testing purposes.
-    this.idle.setIdle(3);
+    this.idle.setIdle(600);
     // sets a timeout period of 5 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-    this.idle.setTimeout(3);
+    this.idle.setTimeout(600);
     // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
     this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
@@ -107,7 +107,7 @@ export class AppComponent{
     });
 
     // sets the ping interval to 15 seconds
-    this.keepalive.interval(5);
+    this.keepalive.interval(500);
 
     this.keepalive.onPing.subscribe(() => this.lastPing = new Date());
 

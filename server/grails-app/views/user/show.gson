@@ -1,7 +1,0 @@
-import com.wits.sec.User
-
-model {
-	User user
-}
-
-json tmpl.user(user)

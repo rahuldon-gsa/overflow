@@ -47,13 +47,10 @@ export class AccountService {
       birthDate.setDate(account.dateOfBirth.day);
       birthDate.setFullYear(account.dateOfBirth.year);
 
-      console.log("Date of Birth before save :: " + birthDate);
-
       account.dateOfBirth = null;
       account.dateOfBirth = birthDate;
       
       account.num = _.random(0, 99999999).toString();
-      console.log("Random :: " + account.num);
     }
 
 
